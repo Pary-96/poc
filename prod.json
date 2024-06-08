@@ -1,5 +1,6 @@
 {
-  "id" : 1,
+  "id" : "1",
   "first_name" : "Paris",
-  "last_name" : "Rahman"
+  "last_name" : "Rahman",
+  "age" : 27
 }
