@@ -1,6 +1,6 @@
 import sys
-import json
 import os
+import json
 
 
 def is_valid_json(file_path):
