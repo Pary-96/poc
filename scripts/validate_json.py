@@ -1,6 +1,6 @@
 import sys
-import os
 import json
+import os
 
 
 def is_valid_json(file_path):
@@ -14,16 +14,18 @@ def is_valid_json(file_path):
 
 
 def main():
-    if len(sys.argv) != 3:
-        print("Usage: python validate_json.py <base_sha> <head_sha>")
-        sys.exit(1)
+    pr_base_sha = os.getenv("GITHUB_BASE_SHA")
+    pr_head_sha = os.getenv("GITHUB_HEAD_SHA")
 
-    base_sha = sys.argv[1]
-    head_sha = sys.argv[2]
+    if not pr_base_sha or not pr_head_sha:
+        print("Missing base or head SHA.")
+        sys.exit(1)
 
     # Get the list of changed files between the two commits
     changed_files = (
-        os.popen(f"git diff --name-only {base_sha} {head_sha}").read().splitlines()
+        os.popen(f"git diff --name-only {pr_base_sha} {pr_head_sha}")
+        .read()
+        .splitlines()
     )
     print(f"Changed files: {changed_files}")  # Debug print
     invalid_files = []

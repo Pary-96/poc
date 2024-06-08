@@ -18,7 +18,12 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Set environment variables
+        run: |
+          echo "GITHUB_BASE_SHA=${{ github.event.pull_request.base.sha }}" >> $GITHUB_ENV
+          echo "GITHUB_HEAD_SHA=${{ github.sha }}" >> $GITHUB_ENV
+
       - name: Validate JSON files
         run: |
-          python scripts/validate_json.py ${{ github.event.pull_request.base.sha }} ${{ github.sha }}
+          python scripts/validate_json.py
         shell: bash
