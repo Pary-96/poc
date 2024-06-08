@@ -8,7 +8,8 @@ def is_valid_json(file_path):
         with open(file_path, "r") as file:
             json.load(file)
         return True
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as e:
+        print(f"Error in {file_path}: {e}")
         return False
 
 
@@ -24,11 +25,12 @@ def main():
     changed_files = (
         os.popen(f"git diff --name-only {base_sha} {head_sha}").read().splitlines()
     )
+    print(f"Changed files: {changed_files}")  # Debug print
     invalid_files = []
 
     for file in changed_files:
         if file.endswith(".json"):
-            print(f"Validating {file}")
+            print(f"Validating {file}")  # Debug print
             if not is_valid_json(file):
                 invalid_files.append(file)
 
